@@ -1,41 +1,41 @@
-# Anthropic Computer Use Demo
+# Anthropic Computer Use デモ
 
 > [!NOTE]
-> Now featuring support for the new Claude 4 models! The latest Claude 4 Sonnet (claude-sonnet-4-20250514) is now the default model, with Claude 4 Opus (claude-opus-4-20250514) also available. These models bring next-generation capabilities with the updated str_replace_based_edit_tool that replaces the previous str_replace_editor tool. The undo_edit command has been removed in this latest version for a more streamlined experience.
+> 新しいClaude 4モデルのサポートを搭載！最新のClaude 4 Sonnet（claude-sonnet-4-20250514）がデフォルトモデルとなり、Claude 4 Opus（claude-opus-4-20250514）も利用可能です。これらのモデルは、従来のstr_replace_editorツールに代わる更新されたstr_replace_based_edit_toolを含む次世代機能を提供します。より合理化された体験のため、この最新バージョンではundo_editコマンドが削除されました。
 
 > [!CAUTION]
-> Computer use is a beta feature. Please be aware that computer use poses unique risks that are distinct from standard API features or chat interfaces. These risks are heightened when using computer use to interact with the internet. To minimize risks, consider taking precautions such as:
+> Computer useはベータ機能です。Computer useは、標準的なAPI機能やチャットインターフェースとは異なる固有のリスクを伴うことにご注意ください。これらのリスクは、computer useを使用してインターネットと相互作用する際に高まります。リスクを最小限に抑えるため、以下の予防措置を検討してください：
 >
-> 1. Use a dedicated virtual machine or container with minimal privileges to prevent direct system attacks or accidents.
-> 2. Avoid giving the model access to sensitive data, such as account login information, to prevent information theft.
-> 3. Limit internet access to an allowlist of domains to reduce exposure to malicious content.
-> 4. Ask a human to confirm decisions that may result in meaningful real-world consequences as well as any tasks requiring affirmative consent, such as accepting cookies, executing financial transactions, or agreeing to terms of service.
+> 1. 直接的なシステム攻撃や事故を防ぐため、最小限の権限を持つ専用の仮想マシンまたはコンテナを使用する。
+> 2. 情報窃取を防ぐため、アカウントログイン情報などの機密データへのモデルアクセスを避ける。
+> 3. 悪意のあるコンテンツへの露出を減らすため、許可リストのドメインにインターネットアクセスを制限する。
+> 4. 実世界で意味のある結果をもたらす可能性のある決定や、Cookieの受け入れ、金融取引の実行、利用規約への同意など、肯定的な同意が必要なタスクについては、人間に確認を求める。
 >
-> In some circumstances, Claude will follow commands found in content even if it conflicts with the user's instructions. For example, instructions on webpages or contained in images may override user instructions or cause Claude to make mistakes. We suggest taking precautions to isolate Claude from sensitive data and actions to avoid risks related to prompt injection.
+> 状況によっては、Claudeはユーザーの指示と矛盾していても、コンテンツ内にある指示に従うことがあります。例えば、ウェブページの指示や画像に含まれる指示がユーザーの指示を上書きしたり、Claudeにミスを犯させたりする可能性があります。プロンプトインジェクションに関連するリスクを避けるため、Claudeを機密データやアクションから隔離する予防措置を講じることをお勧めします。
 >
-> Finally, please inform end users of relevant risks and obtain their consent prior to enabling computer use in your own products.
+> 最後に、エンドユーザーに関連するリスクを知らせ、独自の製品でcomputer useを有効にする前に同意を得てください。
 
-This repository helps you get started with computer use on Claude, with reference implementations of:
+このリポジトリは、ClaudeでのComputer useを始める際に役立ち、以下の参考実装を提供します：
 
-- Build files to create a Docker container with all necessary dependencies
-- A computer use agent loop using the Anthropic API, Bedrock, or Vertex to access Claude 3.5 Sonnet, Claude 3.7 Sonnet, Claude 4 Sonnet, and Claude 4 Opus models
-- Anthropic-defined computer use tools
-- A streamlit app for interacting with the agent loop
+- 必要なすべての依存関係を含むDockerコンテナを作成するためのビルドファイル
+- Anthropic API、Bedrock、またはVertexを使用してClaude 3.5 Sonnet、Claude 3.7 Sonnet、Claude 4 Sonnet、Claude 4 Opusモデルにアクセスするcomputer useエージェントループ
+- Anthropic定義のcomputer useツール
+- エージェントループと相互作用するためのStreamlitアプリ
 
-Please use [this form](https://forms.gle/BT1hpBrqDPDUrCqo7) to provide feedback on the quality of the model responses, the API itself, or the quality of the documentation - we cannot wait to hear from you!
+モデルレスポンス、API自体、またはドキュメントの品質に関するフィードバックを[このフォーム](https://forms.gle/BT1hpBrqDPDUrCqo7)からお寄せください。皆様からのご意見をお待ちしています！
 
 > [!IMPORTANT]
-> The Beta API used in this reference implementation is subject to change. Please refer to the [API release notes](https://docs.anthropic.com/en/release-notes/api) for the most up-to-date information.
+> この参考実装で使用されているベータAPIは変更される可能性があります。最新の情報については、[APIリリースノート](https://docs.anthropic.com/en/release-notes/api)を参照してください。
 
 > [!IMPORTANT]
-> The components are weakly separated: the agent loop runs in the container being controlled by Claude, can only be used by one session at a time, and must be restarted or reset between sessions if necessary.
+> コンポーネントは弱く分離されています：エージェントループはClaudeによって制御されるコンテナ内で実行され、一度に一つのセッションでのみ使用でき、必要に応じてセッション間で再起動またはリセットする必要があります。
 
-## Quickstart: running the Docker container
+## クイックスタート：Dockerコンテナの実行
 
 ### Anthropic API
 
 > [!TIP]
-> You can find your API key in the [Anthropic Console](https://console.anthropic.com/).
+> APIキーは[Anthropic Console](https://console.anthropic.com/)で確認できます。
 
 ```bash
 export ANTHROPIC_API_KEY=%your_api_key%
@@ -49,17 +49,17 @@ docker run \
     -it ghcr.io/anthropics/anthropic-quickstarts:computer-use-demo-latest
 ```
 
-Once the container is running, see the [Accessing the demo app](#accessing-the-demo-app) section below for instructions on how to connect to the interface.
+コンテナが実行されたら、インターフェースへの接続方法については以下の[デモアプリへのアクセス](#デモアプリへのアクセス)セクションを参照してください。
 
 ### Bedrock
 
 > [!TIP]
-> To use the new Claude 3.7 Sonnet on Bedrock, you first need to [request model access](https://docs.aws.amazon.com/bedrock/latest/userguide/model-access-modify.html).
+> BedrockでClaude 3.7 Sonnetを使用するには、まず[モデルアクセスをリクエスト](https://docs.aws.amazon.com/bedrock/latest/userguide/model-access-modify.html)する必要があります。
 
-You'll need to pass in AWS credentials with appropriate permissions to use Claude on Bedrock.
-You have a few options for authenticating with Bedrock. See the [boto3 documentation](https://boto3.amazonaws.com/v1/documentation/api/latest/guide/credentials.html#environment-variables) for more details and options.
+BedrockでClaudeを使用するための適切な権限を持つAWS認証情報を渡す必要があります。
+Bedrockでの認証にはいくつかのオプションがあります。詳細とオプションについては[boto3ドキュメント](https://boto3.amazonaws.com/v1/documentation/api/latest/guide/credentials.html#environment-variables)を参照してください。
 
-#### Option 1: (suggested) Use the host's AWS credentials file and AWS profile
+#### オプション1：（推奨）ホストのAWS認証情報ファイルとAWSプロファイルを使用
 
 ```bash
 export AWS_PROFILE=<your_aws_profile>
@@ -76,9 +76,9 @@ docker run \
     -it ghcr.io/anthropics/anthropic-quickstarts:computer-use-demo-latest
 ```
 
-Once the container is running, see the [Accessing the demo app](#accessing-the-demo-app) section below for instructions on how to connect to the interface.
+コンテナが実行されたら、インターフェースへの接続方法については以下の[デモアプリへのアクセス](#デモアプリへのアクセス)セクションを参照してください。
 
-#### Option 2: Use an access key and secret
+#### オプション2：アクセスキーとシークレットを使用
 
 ```bash
 export AWS_ACCESS_KEY_ID=%your_aws_access_key%
@@ -98,11 +98,11 @@ docker run \
     -it ghcr.io/anthropics/anthropic-quickstarts:computer-use-demo-latest
 ```
 
-Once the container is running, see the [Accessing the demo app](#accessing-the-demo-app) section below for instructions on how to connect to the interface.
+コンテナが実行されたら、インターフェースへの接続方法については以下の[デモアプリへのアクセス](#デモアプリへのアクセス)セクションを参照してください。
 
 ### Vertex
 
-You'll need to pass in Google Cloud credentials with appropriate permissions to use Claude on Vertex.
+VertexでClaudeを使用するための適切な権限を持つGoogle Cloud認証情報を渡す必要があります。
 
 ```bash
 docker build . -t computer-use-demo
@@ -121,26 +121,26 @@ docker run \
     -it computer-use-demo
 ```
 
-Once the container is running, see the [Accessing the demo app](#accessing-the-demo-app) section below for instructions on how to connect to the interface.
+コンテナが実行されたら、インターフェースへの接続方法については以下の[デモアプリへのアクセス](#デモアプリへのアクセス)セクションを参照してください。
 
-This example shows how to use the Google Cloud Application Default Credentials to authenticate with Vertex.
-You can also set `GOOGLE_APPLICATION_CREDENTIALS` to use an arbitrary credential file, see the [Google Cloud Authentication documentation](https://cloud.google.com/docs/authentication/application-default-credentials#GAC) for more details.
+この例では、Google Cloud Application Default CredentialsでVertexの認証を行う方法を示しています。
+任意の認証情報ファイルを使用するために`GOOGLE_APPLICATION_CREDENTIALS`を設定することもできます。詳細については[Google Cloud認証ドキュメント](https://cloud.google.com/docs/authentication/application-default-credentials#GAC)を参照してください。
 
-### Accessing the demo app
+### デモアプリへのアクセス
 
-Once the container is running, open your browser to [http://localhost:8080](http://localhost:8080) to access the combined interface that includes both the agent chat and desktop view.
+コンテナが実行されたら、ブラウザで[http://localhost:8080](http://localhost:8080)を開いて、エージェントチャットとデスクトップビューの両方を含む統合インターフェースにアクセスしてください。
 
-The container stores settings like the API key and custom system prompt in `~/.anthropic/`. Mount this directory to persist these settings between container runs.
+コンテナは、APIキーやカスタムシステムプロンプトなどの設定を`~/.anthropic/`に保存します。このディレクトリをマウントして、コンテナ実行間でこれらの設定を永続化してください。
 
-Alternative access points:
+その他のアクセスポイント：
 
-- Streamlit interface only: [http://localhost:8501](http://localhost:8501)
-- Desktop view only: [http://localhost:6080/vnc.html](http://localhost:6080/vnc.html)
-- Direct VNC connection: `vnc://localhost:5900` (for VNC clients)
+- Streamlitインターフェースのみ：[http://localhost:8501](http://localhost:8501)
+- デスクトップビューのみ：[http://localhost:6080/vnc.html](http://localhost:6080/vnc.html)
+- 直接VNC接続：`vnc://localhost:5900`（VNCクライアント用）
 
-## Screen size
+## 画面サイズ
 
-Environment variables `WIDTH` and `HEIGHT` can be used to set the screen size. For example:
+環境変数`WIDTH`と`HEIGHT`を使用して画面サイズを設定できます。例：
 
 ```bash
 docker run \
@@ -155,29 +155,29 @@ docker run \
     -it ghcr.io/anthropics/anthropic-quickstarts:computer-use-demo-latest
 ```
 
-We do not recommend sending screenshots in resolutions above [XGA/WXGA](https://en.wikipedia.org/wiki/Display_resolution_standards#XGA) to avoid issues related to [image resizing](https://docs.anthropic.com/en/docs/build-with-claude/vision#evaluate-image-size).
-Relying on the image resizing behavior in the API will result in lower model accuracy and slower performance than implementing scaling in your tools directly. The `computer` tool implementation in this project demonstrates how to scale both images and coordinates from higher resolutions to the suggested resolutions.
+[画像のリサイズ](https://docs.anthropic.com/en/docs/build-with-claude/vision#evaluate-image-size)に関連する問題を避けるため、[XGA/WXGA](https://en.wikipedia.org/wiki/Display_resolution_standards#XGA)以上の解像度でスクリーンショットを送信することはお勧めしません。
+APIの画像リサイズ動作に依存すると、ツールで直接スケーリングを実装するよりもモデルの精度が低下し、パフォーマンスが低下します。このプロジェクトの`computer`ツール実装では、高解像度から推奨解像度へ画像と座標の両方をスケーリングする方法を示しています。
 
-When implementing computer use yourself, we recommend using XGA resolution (1024x768):
+Computer useを自分で実装する際は、XGA解像度（1024x768）の使用をお勧めします：
 
-- For higher resolutions: Scale the image down to XGA and let the model interact with this scaled version, then map the coordinates back to the original resolution proportionally.
-- For lower resolutions or smaller devices (e.g. mobile devices): Add black padding around the display area until it reaches 1024x768.
+- 高解像度の場合：画像をXGAにスケールダウンし、モデルがこのスケールされたバージョンと相互作用できるようにし、座標を元の解像度に比例してマッピングし直す。
+- 低解像度または小さなデバイス（例：モバイルデバイス）の場合：1024x768に達するまでディスプレイエリアの周囲に黒いパディングを追加する。
 
-## Development
+## 開発
 
 ```bash
-./setup.sh  # configure venv, install development dependencies, and install pre-commit hooks
-docker build . -t computer-use-demo:local  # manually build the docker image (optional)
+./setup.sh  # venvの設定、開発依存関係のインストール、pre-commitフックのインストール
+docker build . -t computer-use-demo:local  # dockerイメージの手動ビルド（オプション）
 export ANTHROPIC_API_KEY=%your_api_key%
 docker run \
     -e ANTHROPIC_API_KEY=$ANTHROPIC_API_KEY \
-    -v $(pwd)/computer_use_demo:/home/computeruse/computer_use_demo/ `# mount local python module for development` \
+    -v $(pwd)/computer_use_demo:/home/computeruse/computer_use_demo/ `# 開発用にローカルPythonモジュールをマウント` \
     -v $HOME/.anthropic:/home/computeruse/.anthropic \
     -p 5900:5900 \
     -p 8501:8501 \
     -p 6080:6080 \
     -p 8080:8080 \
-    -it computer-use-demo:local  # can also use ghcr.io/anthropics/anthropic-quickstarts:computer-use-demo-latest
+    -it computer-use-demo:local  # ghcr.io/anthropics/anthropic-quickstarts:computer-use-demo-latestも使用可能
 ```
 
-The docker run command above mounts the repo inside the docker image, such that you can edit files from the host. Streamlit is already configured with auto reloading.
+上記のdocker runコマンドは、dockerイメージ内にリポジトリをマウントし、ホストからファイルを編集できるようにします。Streamlitは既に自動リロードで設定されています。
